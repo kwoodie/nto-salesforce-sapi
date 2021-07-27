@@ -4,13 +4,15 @@ http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mu
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
     <http:listener-config name="salesforce-sapi-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="8081" />
+        <http:listener-connection host="0.0.0.0" port="${http.port}" />
     </http:listener-config>
     <apikit:config name="salesforce-sapi-config" api="resource::3f7c79ff-0cca-4f70-b9ca-b67e52ff5b3f:salesforce-sapi:1.0.0:raml:zip:salesforce-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="ba9af484-1189-46cb-abf4-f5fc92f8ac0c" >
 		<salesforce:basic-connection username="kwoodie@cefmail.org" password="Hopeigetthisjob2021" securityToken="um9n7JZqTo10Hm9mJaE11fwg" />
 	</salesforce:sfdc-config>
 	<api-gateway:autodiscovery apiId="17099905" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="e4ccf318-085e-4c97-b04a-76b2758cd1c4" flowRef="salesforce-sapi-main" />
+	<global-property doc:name="Global Property" doc:id="a2673ec8-0451-41a6-a07b-41c3cad6ade5" name="env" value="local" />
+	<configuration-properties doc:name="Configuration properties" doc:id="003c2fa0-c3e6-4e76-a151-c623d76d3a0c" file="${env}.properties" />
 	<flow name="salesforce-sapi-main">
         <http:listener config-ref="salesforce-sapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -159,7 +161,7 @@ output application/java
 	MailingCountry: vars.request.country
 }]]]]></salesforce:records>
 				</salesforce:create>
-				<set-variable value="#[payload.items[0].id as String]" doc:name="Set Variable" doc:id="797647f9-4843-43c9-a52e-fee2dbce9108" variableName="salesforce_id"/>
+				<set-variable doc:name="Set Variable" doc:id="797647f9-4843-43c9-a52e-fee2dbce9108" variableName="salesforce_id" value="#[payload.items[0].id]"/>
 				<ee:transform doc:name="Transform Message" doc:id="bd358d7f-f0ad-4aba-88cd-fdafaafba122" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
