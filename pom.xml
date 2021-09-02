@@ -48,7 +48,7 @@
 		</dependency>
 		<dependency>
 			<groupId>c765836d-e1e4-4d63-86e4-70c01d384ee4</groupId>
-			<artifactId>salesforce-sapi</artifactId>
+			<artifactId>salesforce-sapi-1</artifactId>
 			<version>1.0.0</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
