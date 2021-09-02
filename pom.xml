@@ -47,7 +47,7 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>3f7c79ff-0cca-4f70-b9ca-b67e52ff5b3f</groupId>
+			<groupId>c765836d-e1e4-4d63-86e4-70c01d384ee4</groupId>
 			<artifactId>salesforce-sapi</artifactId>
 			<version>1.0.0</version>
 			<classifier>raml</classifier>
